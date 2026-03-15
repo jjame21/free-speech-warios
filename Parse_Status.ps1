@@ -1,8 +1,18 @@
+param([switch]$a) # Define the -a flag
+
 # Get the folder where this script is located
 $PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $inputFile = Join-Path $PSScriptRoot "status.txt"
 $ignoreFile = Join-Path $PSScriptRoot "ignore.txt"
-$outputFile = Join-Path $PSScriptRoot "output.csv"
+
+# Decide which output file to use based on the -a flag
+if ($a) {
+    $outputFile = Join-Path $PSScriptRoot "cs2_stats.csv"
+    Write-Host "Mode: APPENDING to cs2_stats.csv" -ForegroundColor Yellow
+} else {
+    $outputFile = Join-Path $PSScriptRoot "output.csv"
+    Write-Host "Mode: WRITING to output.csv" -ForegroundColor Yellow
+}
 
 # 1. Check if status.txt exists
 if (-not (Test-Path $inputFile)) {
@@ -10,7 +20,7 @@ if (-not (Test-Path $inputFile)) {
     return
 }
 
-# 2. Load the ignore list (if it exists)
+# 2. Load the ignore list
 $ignoreList = @()
 if (Test-Path $ignoreFile) {
     $ignoreList = Get-Content $ignoreFile | ForEach-Object { $_.Trim() }
@@ -26,7 +36,6 @@ if ($matches.Count -gt 0) {
     foreach ($match in $matches) {
         $playerName = $match.Groups[1].Value
         
-        # Check if player is in the ignore list
         if ($ignoreList -contains $playerName) {
             Write-Host "Skipping ignored player: $playerName" -ForegroundColor Gray
             continue
@@ -38,7 +47,7 @@ if ($matches.Count -gt 0) {
         Write-Host "Added: $playerName" -ForegroundColor Green
         $addedCount++
     }
-    Write-Host "`nDone! Added $addedCount players to output.csv." -ForegroundColor Cyan
+    Write-Host "`nDone! Added $addedCount players to $(Split-Path $outputFile -Leaf)." -ForegroundColor Cyan
 } else {
     Write-Host "No active players found in status.txt." -ForegroundColor Yellow
 }
