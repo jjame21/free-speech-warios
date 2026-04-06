@@ -48,7 +48,7 @@ You can explicitly tell Windows to launch PowerShell and run the file by pasting
 
 * **Standard Mode (Append to master):**
   ```bash
-  powershell.exe -ExecutionPolicy Bypass -File "./ParseStatus.ps1" -a
+  powershell.exe -ExecutionPolicy Bypass -File "./cs2.ps1" -a
 
 ### Windows PowerShell
 Because Windows blocks local scripts by default, you have two options:
