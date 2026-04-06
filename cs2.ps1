@@ -58,7 +58,7 @@ if ($matches.Count -gt 0) {
         # 5. NEW COLUMN FORMAT
         # Columns: date,time,game,player,player_id,on_team,slur,anti_black,antisemitic,facist,notes
         # This requires exactly 10 commas to separate the 11 columns.
-        $csvLine = "$currentDate,$currentTime,cs2,""$playerName"",,,,,,,"
+        $csvLine = "$currentDate,$currentTime,cs2,""$playerName"",,,,,,,,"
         
         Add-Content -Path $outputFile -Value $csvLine
         Write-Host "Added: $playerName" -ForegroundColor Green
@@ -66,7 +66,7 @@ if ($matches.Count -gt 0) {
     }
 
     # 6. Add an empty separator line (10 commas for 11 empty columns)
-    Add-Content -Path $outputFile -Value ",,,,,,,,,,"
+    Add-Content -Path $outputFile -Value ",,,,,,,,,,,"
     
     Write-Host "`nDone! Added $addedCount players and a separator line." -ForegroundColor Cyan
 } else {
