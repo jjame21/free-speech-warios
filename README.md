@@ -88,3 +88,21 @@ You likely don't want to log yourself, your friends, or certain bots.
 MyUsername
 MyFriendsUsername
 SomeOtherPlayer
+```
+
+---
+
+## 🔍 Single Steam ID Resolver
+
+Use `steamProfile.ps1` to quickly convert a single Steam URL into a SteamID64 directly in your terminal.
+
+### How to Use
+Run the script followed by the URL in quotes:
+```powershell
+.\steamProfile.ps1 "https://steamcommunity.com/id/TiggerLover/"
+```
+
+### Supported URL Formats
+* **Custom Vanity URLs:** `https://steamcommunity.com/id/Username`
+* **Direct Profile URLs:** `https://steamcommunity.com/profiles/76561198138715176`
+* **Share URLs:** `https://steamid64.net/profile/76561198138715176`
